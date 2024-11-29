@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace StatePattern
 {
-    internal class AppStateMachine : MonoBehaviour, IAppStateMachine
+    internal class AppStateMachine : PersistentSingletonMonoBehaviour<AppStateMachine>, IAppStateMachine
     {
         private IAppState _activeState;
         private AppStatesManager _statesManager;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _statesManager = new AppStatesManager(this);
         }
 
