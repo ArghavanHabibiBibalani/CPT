@@ -1,11 +1,14 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace StatePattern
 {
     internal class AppStateMachine : PersistentSingletonMonoBehaviour<AppStateMachine>, IAppStateMachine
     {
+        [SerializeField] private SceneNames _sceneNames;
+
         private IAppState _activeState;
         private AppStatesManager _statesManager;
 
@@ -13,6 +16,20 @@ namespace StatePattern
         {
             base.Awake();
             _statesManager = new AppStatesManager(this);
+            SetInitialState();
+        }
+
+        private void SetInitialState()
+        {
+            if (SceneManager.GetActiveScene().name == _sceneNames.Main)
+            {
+                _activeState = _statesManager.GetAppStateByType(AppStateType.MAINMENU);
+            }
+            else
+            {
+                _activeState = _statesManager.GetAppStateByType(AppStateType.WARMUP);
+            }
+            _activeState.Enter();
         }
 
         private void Update()
@@ -32,9 +49,9 @@ namespace StatePattern
             private IAppStateMachine _stateMachine;
             private Dictionary<AppStateType ,IAppState> _states;
 
-
             public AppStatesManager(IAppStateMachine stateMachine)
             {
+                _states = new Dictionary<AppStateType, IAppState>();
                 InitializeStates();
             }
 
