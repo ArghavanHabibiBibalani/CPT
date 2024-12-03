@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WarmupUIView : MonoBehaviour
+public class TestUIView : MonoBehaviour
 {
     [SerializeField] private Button _button;
     [SerializeField] private Image _topSquare;
@@ -14,10 +14,27 @@ public class WarmupUIView : MonoBehaviour
     [SerializeField] private Image _startImage;
 
     public event Action ScreenTapped;
+    public event Action CountdownFinished;
 
     private void Awake()
     {
         SetUpButton();
+    }
+
+    public void ActivateTopSquare()
+    {
+        _topSquare.gameObject.SetActive(true);
+    }
+
+    public void ActivateBottomSquare()
+    {
+        _bottomSquare.gameObject.SetActive(true);
+    }
+
+    public void HideSquares()
+    {
+        _topSquare.gameObject.SetActive(false);
+        _bottomSquare.gameObject.SetActive(false);
     }
 
     public void HideAllElements()
@@ -47,7 +64,7 @@ public class WarmupUIView : MonoBehaviour
     private IEnumerator Countdown(float duration)
     {
         var timer = duration;
-        while (duration > 0)
+        while (timer > 0)
         {
             _countdownText.text = timer.ToString();
             yield return new WaitForSeconds(1);
@@ -55,8 +72,9 @@ public class WarmupUIView : MonoBehaviour
         }
         _countdownText.gameObject.SetActive(false);
         _startImage.gameObject.SetActive(true);
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(1);
         _startImage.gameObject.SetActive(false);
+        CountdownFinished?.Invoke();
     }
 
     private void SetUpButton()

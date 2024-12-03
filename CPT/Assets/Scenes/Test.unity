@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneNames: {fileID: 11400000, guid: 2a3dec2a953dfe94ca3acee5059e480c, type: 2}
+  _testSettings: {fileID: 11400000, guid: d98b159c32d65aa4a9fb8edd402d72fd, type: 2}
 --- !u!4 &442036956
 Transform:
   m_ObjectHideFlags: 0
@@ -390,7 +391,7 @@ GameObject:
   - component: {fileID: 1056082297}
   - component: {fileID: 1056082296}
   m_Layer: 0
-  m_Name: WarmupUIView
+  m_Name: TestUIView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +412,7 @@ MonoBehaviour:
   _button: {fileID: 1400180955}
   _topSquare: {fileID: 1585666289}
   _bottomSquare: {fileID: 441617311}
-  _countDownText: {fileID: 1997166674}
+  _countdownText: {fileID: 1997166674}
   _startImage: {fileID: 1371370694}
 --- !u!4 &1056082297
 Transform:

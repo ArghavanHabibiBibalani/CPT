@@ -5,18 +5,26 @@ using UnityEngine.SceneManagement;
 
 namespace StatePattern
 {
-    internal class AppStateMachine : PersistentSingletonMonoBehaviour<AppStateMachine>, IAppStateMachine
+    internal class AppStateMachine : PersistentSingletonMonoBehaviour<AppStateMachine>, IAppStateMachine // Remove this interface
     {
         [SerializeField] private SceneNames _sceneNames;
+        [SerializeField] private TestSettings _testSettings;
 
         private IAppState _activeState;
         private AppStatesManager _statesManager;
+
+        public TestSettings testSettings { get => _testSettings; }
 
         protected override void Awake()
         {
             base.Awake();
             _statesManager = new AppStatesManager(this);
             SetInitialState();
+        }
+
+        private void Update()
+        {
+            _activeState?.Update();
         }
 
         private void SetInitialState()
@@ -30,11 +38,6 @@ namespace StatePattern
                 _activeState = _statesManager.GetAppStateByType(AppStateType.WARMUP);
             }
             _activeState.Enter();
-        }
-
-        private void Update()
-        {
-            _activeState?.Update();
         }
 
         public void TransitionTo(AppStateType targetStateType)

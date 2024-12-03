@@ -5,8 +5,7 @@ namespace StatePattern
 {
     internal class WarmupAppState : AbstractAppState
     {
-        [SerializeField] private CountdownSettings _countdownSettings;
-
+        private TestUIView _testUIView;
         private TestManager _testManager;
 
         public WarmupAppState(IAppStateMachine stateMachine)
@@ -16,8 +15,8 @@ namespace StatePattern
 
         public override void Enter()
         {
-            _testManager = new TestManager(_countdownSettings);
-            
+            _testUIView = Object.FindObjectOfType<TestUIView>();
+            _testManager = new TestManager(AppStateMachine.Instance.testSettings, _testUIView, true); // Fix the dependencies      
         }
 
         public override void Update() // May be unnecessary
