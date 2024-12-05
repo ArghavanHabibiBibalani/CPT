@@ -20,13 +20,9 @@ public class SInputCharecteristics : MonoBehaviour
     [SerializeField]
     public TMP_InputField playerWakeUpTimeInput;
 
-    public SInputCharecteristics()
+    public string GetInputCharecteristicsData()
     {
-
+        string csvData = $"{playerNameInput.text}, {playerAgeInput.text}, {playerGenderInput.text}, {playerdailySleepTimeInput.text}, {playerBedTimeInput.text}, {playerWakeUpTimeInput.text}";
+        return csvData;
     }
-
-
-
-
-
 }
