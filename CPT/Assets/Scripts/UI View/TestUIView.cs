@@ -1,4 +1,5 @@
 
+using StatePattern;
 using System;
 using System.Collections;
 using TMPro;
@@ -12,6 +13,11 @@ public class TestUIView : MonoBehaviour
     [SerializeField] private Image _bottomSquare;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private Image _startImage;
+
+    [SerializeField] private Image _warmupImage;
+    [SerializeField] private Image _testImage;
+
+    private float _countdownDuration { get => AppStateMachine.Instance.testSettings.countdownDuration; }
 
     public event Action ScreenTapped;
     public event Action CountdownFinished;
@@ -44,26 +50,42 @@ public class TestUIView : MonoBehaviour
         _bottomSquare.gameObject.SetActive(false);
         _countdownText.gameObject.SetActive(false);
         _startImage.gameObject.SetActive(false);
+        _warmupImage.gameObject.SetActive(false);
+        _testImage.gameObject.SetActive(false);
     }
 
-    public void UnhideAllElements()
+    public void BeginWarmupCountdown()
     {
-        _button.gameObject.SetActive(true);
-        _topSquare.gameObject.SetActive(true);
-        _bottomSquare.gameObject.SetActive(true);
+        HideAllElements();
+        StartCoroutine(WarmupCountdownCoroutine());
+    }
+
+    public void BeginTestCountdown()
+    {
+        HideAllElements();
+        StartCoroutine(TestCountdownCoroutine());
+    }
+
+    private IEnumerator WarmupCountdownCoroutine()
+    {
+        _warmupImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(_countdownDuration);
+        _warmupImage.gameObject.SetActive(false);
+        StartCoroutine(CountdownCoroutine(true));
+    }
+
+    private IEnumerator TestCountdownCoroutine()
+    {
+        _testImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(_countdownDuration);
+        _testImage.gameObject.SetActive(false);
+        StartCoroutine(CountdownCoroutine(false));
+    }
+
+    private IEnumerator CountdownCoroutine(bool isWarmup)
+    {
         _countdownText.gameObject.SetActive(true);
-        _startImage.gameObject.SetActive(true);
-    }
-
-    public void BeginCountdown(float duration)
-    {
-        _countdownText.gameObject.SetActive(true);
-        StartCoroutine(Countdown(duration));
-    }
-
-    private IEnumerator Countdown(float duration)
-    {
-        var timer = duration;
+        var timer = _countdownDuration;
         while (timer > 0)
         {
             _countdownText.text = timer.ToString();

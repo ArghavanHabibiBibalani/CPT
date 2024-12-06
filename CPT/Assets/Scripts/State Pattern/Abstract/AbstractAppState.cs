@@ -7,12 +7,12 @@ namespace StatePattern
     {
         protected IAppStateMachine _stateMachine;
 
-        public abstract void Enter();
+        public virtual void Enter() { }
 
-        public abstract void Update();
+        public virtual void Update() { }
 
-        public abstract void Exit();
+        public virtual void Exit() { }
 
-        public abstract void Reset();
+        public virtual void Reset() { }
     }
 }

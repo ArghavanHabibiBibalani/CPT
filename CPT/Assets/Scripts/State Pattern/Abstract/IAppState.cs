@@ -5,10 +5,10 @@ namespace StatePattern
 {
     internal interface IAppState
     {
-        public abstract void Enter();
-        public abstract void Update();
-        public abstract void Exit();
-        public abstract void Reset();
+        public virtual void Enter() { }
+        public virtual void Update() { }
+        public virtual void Exit() { }
+        public virtual void Reset() { }
 
         public static MainMenuAppState CreateMainMenuAppState(IAppStateMachine stateMachine)
         {
@@ -23,11 +23,6 @@ namespace StatePattern
         public static TestOverviewAppState CreateTestOverviewAppState(IAppStateMachine stateMachine)
         {
             return new TestOverviewAppState(stateMachine);
-        }
-
-        public static WarmupAppState CreateWarmupAppState(IAppStateMachine stateMachine)
-        {
-            return new WarmupAppState(stateMachine);
         }
 
         public static TestAppState CreateTestAppState(IAppStateMachine stateMachine)

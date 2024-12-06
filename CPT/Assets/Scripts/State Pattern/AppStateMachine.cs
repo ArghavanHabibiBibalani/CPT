@@ -35,7 +35,7 @@ namespace StatePattern
             }
             else
             {
-                _activeState = _statesManager.GetAppStateByType(AppStateType.WARMUP);
+                _activeState = _statesManager.GetAppStateByType(AppStateType.TEST);
             }
             _activeState.Enter();
         }
@@ -68,7 +68,6 @@ namespace StatePattern
                 _states.Add(AppStateType.MAINMENU, IAppState.CreateMainMenuAppState(_stateMachine));
                 _states.Add(AppStateType.PERSONAL_INFO, IAppState.CreatePersonalInfoAppState(_stateMachine));
                 _states.Add(AppStateType.TEST_OVERVIEW, IAppState.CreateTestOverviewAppState(_stateMachine));
-                _states.Add(AppStateType.WARMUP, IAppState.CreateWarmupAppState(_stateMachine));
                 _states.Add(AppStateType.TEST, IAppState.CreateTestAppState(_stateMachine));
             }
         }

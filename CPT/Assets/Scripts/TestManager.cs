@@ -14,46 +14,50 @@ public class TestManager
     private int _trialsPerPart;
     private int _topSquareTrials;
 
+    private bool _isWarmup;
+
     /// <summary>
     /// true = square on top
     /// </summary>
     private List<bool> _squaresSequence;
 
-    public TestManager(TestSettings testSettings, TestUIView testUIView, bool isWarmup)
+    public event Action WarmupFinished;
+    public event Action TestFinished;
+
+    public TestManager(TestSettings testSettings, TestUIView testUIView)
     {
         _testSettings = testSettings;
         _testUIView = testUIView;
-        
-        InitializeListeners();
+        _testUIView.CountdownFinished += OnCountdownFinished;
+    }
 
-        _totalTrials = isWarmup ? _testSettings.warmupTrialCount : _testSettings.testTrialCount;
-        _totalParts = isWarmup ? _testSettings.warmupPartCount : _testSettings.testPartCount;
-        _trialsPerPart = _totalTrials / _totalParts;
-        InitializeTopSquareTrialCount(isWarmup);
-
-        InitializeSquareSequence();
-
-        BeginTest();
+    public void BeginWarmup()
+    {
+        _isWarmup = true;
+        _testUIView.BeginWarmupCountdown();
     }
 
     public void BeginTest()
     {
-        _testUIView.HideAllElements();
-        _testUIView.BeginCountdown(_testSettings.countdownDuration);
-    }
-
-    public void OnScreenTapped()
-    {
-
+        _isWarmup = false;
+        _testUIView.BeginTestCountdown();
     }
 
     private void OnCountdownFinished()
     {
-        _testUIView.StartCoroutine(BeginTrials());
+        if (_isWarmup)
+        {
+            _testUIView.StartCoroutine(BeginTrials(true));
+        }
+        else
+        {
+            _testUIView.StartCoroutine(BeginTrials(false));
+        }
     }
 
-    private IEnumerator BeginTrials()
+    private IEnumerator BeginTrials(bool isWarmup)
     {
+        SetInitialData(isWarmup);
         var trialCounter = 0;
         var partCounter = 0;
         while (partCounter < _totalParts)
@@ -71,7 +75,23 @@ public class TestManager
             partCounter++;
             yield return new WaitForSeconds(_testSettings.breakDuration);
         }
+        if (isWarmup)
+        {
+            WarmupFinished?.Invoke();
+        }
+        else
+        {
+            TestFinished?.Invoke();
+        }
         // Save and proceed to the results?
+    }
+    private void SetInitialData(bool isWarmup)
+    {
+        _totalTrials = isWarmup ? _testSettings.warmupTrialCount : _testSettings.testTrialCount;
+        _totalParts = isWarmup ? _testSettings.warmupPartCount : _testSettings.testPartCount;
+        _trialsPerPart = _totalTrials / _totalParts;
+        _topSquareTrials = (int)(_totalTrials * _testSettings.topSquarePercentage);
+        InitializeSquareSequence();
     }
 
     private void ActivateSquare(int index)
@@ -99,29 +119,5 @@ public class TestManager
             _squaresSequence.Add(false);
 
         Utility.ShuffleList(_squaresSequence);
-    }
-
-    private void InitializeListeners()
-    {
-        _testUIView.ScreenTapped += OnScreenTapped;
-        _testUIView.CountdownFinished += OnCountdownFinished;
-    }
-
-    private void InitializeTopSquareTrialCount(bool isWarmup)
-    {
-        var trialCount = isWarmup ? _testSettings.warmupTrialCount : _testSettings.testTrialCount;
-        _topSquareTrials = (int)(trialCount * _testSettings.topSquarePercentage);
-    }
-
-    private void PrintList<T>(List<T> list)
-    {
-        if (list == null || list.Count == 0)
-        {
-            Debug.Log("List is empty or null.");
-            return;
-        }
-
-        string output = string.Join(", ", list);
-        Debug.Log($"List contents: [{output}]");
     }
 }

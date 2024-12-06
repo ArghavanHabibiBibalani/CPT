@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Test Settings
   m_EditorClassIdentifier: 
   _countdownDuration: 3
-  _warmupTrialCount: 8
-  _warmupPartCount: 4
-  _testTrialCount: 250
+  _warmupTrialCount: 4
+  _warmupPartCount: 2
+  _testTrialCount: 4
   _testPartCount: 2
   _topSquarePercentage: 0.8
   _squareVisibilityDuration: 0.1
