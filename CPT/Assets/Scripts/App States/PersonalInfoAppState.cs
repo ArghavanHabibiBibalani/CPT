@@ -63,7 +63,7 @@ namespace StatePattern
         {
             if (_inputCharacteristics && _dataSaver)
             {
-                string data = _inputCharacteristics.GetInputCharecteristicsData();
+                string data = _inputCharacteristics.GetComponent<InputCharecteristics>().GetInputCharecteristicsData();
                 _dataSaver.SavePlayerData(data);
             }
 
