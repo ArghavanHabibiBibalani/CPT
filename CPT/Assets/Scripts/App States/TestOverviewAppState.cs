@@ -5,6 +5,9 @@ namespace StatePattern
 {
     internal class TestOverviewAppState : AbstractAppState
     {
+
+        private OverviewUIView _overviewUIView;
+
         public TestOverviewAppState(IAppStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
@@ -12,25 +15,19 @@ namespace StatePattern
 
         public override void Enter()
         {
-            throw new System.NotImplementedException();
-            // Make the TestOverViewUIView do stuff
-        }
-        public override void Update()
-        {
-            throw new System.NotImplementedException();
-            // Handle Skip or NextSlide events here maybe?
+            _overviewUIView = Object.FindObjectOfType<OverviewUIView>();
+            _overviewUIView.ScreenTapped += OnScreenTapped;
+            _overviewUIView.ShowOverviewPanel();
         }
 
         public override void Exit()
         {
-            throw new System.NotImplementedException();
-            // Make the TestOverViewUIView do stuff
+            _overviewUIView.HideOverviewPanel();
         }
 
-        public override void Reset()
+        private void OnScreenTapped()
         {
-            throw new System.NotImplementedException();
-            // Make the TestOverViewUIView do stuff
+            _stateMachine.TransitionTo(AppStateType.WARMUP);
         }
     }
 }
