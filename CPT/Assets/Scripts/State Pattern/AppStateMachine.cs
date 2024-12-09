@@ -54,6 +54,7 @@ namespace StatePattern
 
             public AppStatesManager(IAppStateMachine stateMachine)
             {
+                _stateMachine = stateMachine;
                 _states = new Dictionary<AppStateType, IAppState>();
                 InitializeStates();
             }

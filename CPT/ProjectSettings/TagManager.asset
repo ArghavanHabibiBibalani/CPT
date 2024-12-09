@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PersonalInfoUIView
+  - StartButton
+  - SaveButton
+  - Characteristics
+  - ExitButton
   layers:
   - Default
   - TransparentFX

@@ -982,8 +982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a32c322a4746e498fb832038557f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 7414542258051756024}
-  _saveButton: {fileID: 4692950595975191805}
 --- !u!1 &2712495491601776897
 GameObject:
   m_ObjectHideFlags: 0
@@ -2436,8 +2434,8 @@ GameObject:
   - component: {fileID: 2248159232966748644}
   - component: {fileID: 4692950595975191805}
   m_Layer: 5
-  m_Name: NextButton
-  m_TagString: Untagged
+  m_Name: SaveButton
+  m_TagString: SaveButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3367,8 +3365,8 @@ GameObject:
   - component: {fileID: 6732880179139498805}
   - component: {fileID: 2498206538334173057}
   m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
+  m_Name: StartButton
+  m_TagString: StartButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4458,7 +4456,6 @@ GameObject:
   - component: {fileID: 6944805538994555840}
   - component: {fileID: 6655483752888218959}
   - component: {fileID: 7237342525949477483}
-  - component: {fileID: 7308261397899171492}
   m_Layer: 5
   m_Name: BackGroundColor
   m_TagString: Untagged
@@ -4525,20 +4522,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7308261397899171492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8391109414804480528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c278e39a3eefe4faa877c6150864e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _StartButton: {fileID: 2498206538334173057}
-  _CharacteristicsPanel: {fileID: 6289894043321192995}
 --- !u!1 &8683145436327092508
 GameObject:
   m_ObjectHideFlags: 0
