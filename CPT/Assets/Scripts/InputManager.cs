@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputCharecteristics : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     [SerializeField]
     public TMP_InputField playerNameInput;

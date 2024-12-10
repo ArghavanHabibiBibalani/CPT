@@ -39,6 +39,7 @@ namespace StatePattern
             {
                 _startButton.onClick.RemoveListener(OnStartButtonClicked);
                 GameObject.Find("StartButton").SetActive(false);
+                _inputCharacteristics.SetActive(true);
             }
         }
 

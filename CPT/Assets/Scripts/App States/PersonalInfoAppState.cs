@@ -10,23 +10,24 @@ namespace StatePattern
     {
         private Button _saveButton;
         private Button _exitButton;
-        private GameObject _inputCharacteristics;
-        private SaveCharecteristicsData _dataSaver;
+        private InputManager _inputCharacteristics;
+        private SaveInputManager _dataSaver;
         public PersonalInfoAppState(IAppStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
+            _dataSaver = new SaveInputManager();
         }
 
         public override void Enter()
         {
-            _inputCharacteristics = GameObject.FindGameObjectWithTag("Characteristics");
+            _inputCharacteristics = GameObject.FindGameObjectWithTag("Characteristics")?.GetComponent<InputManager>();
             if (_inputCharacteristics == null)
             {
                 Debug.LogError("SInputCharecteristics instance not found!");
                 return;
             }
 
-            _inputCharacteristics.SetActive(true);
+            GameObject.FindGameObjectWithTag("Characteristics").SetActive(true);
 
             _saveButton = GameObject.FindGameObjectWithTag("SaveButton")?.GetComponent<Button>();
 
@@ -43,7 +44,7 @@ namespace StatePattern
 
             if (_exitButton)
             {
-                _exitButton.onClick.AddListener(HandleSave);//////////back to main state
+                //_exitButton.onClick.AddListener(HandleSave);//////////back to main state
             }
             else
             {
@@ -61,9 +62,9 @@ namespace StatePattern
 
         private void HandleSave()
         {
-            if (_inputCharacteristics && _dataSaver)
+            if (_inputCharacteristics)
             {
-                string data = _inputCharacteristics.GetComponent<InputCharecteristics>().GetInputCharecteristicsData();
+                string data = _inputCharacteristics.GetComponent<InputManager>().GetInputCharecteristicsData();
                 _dataSaver.SavePlayerData(data);
             }
 

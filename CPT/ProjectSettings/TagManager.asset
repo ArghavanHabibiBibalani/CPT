@@ -7,8 +7,8 @@ TagManager:
   - PersonalInfoUIView
   - StartButton
   - SaveButton
-  - Characteristics
   - ExitButton
+  - Characteristics
   layers:
   - Default
   - TransparentFX

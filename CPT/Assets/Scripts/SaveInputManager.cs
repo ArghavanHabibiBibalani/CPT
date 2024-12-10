@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class SaveCharecteristicsData : MonoBehaviour
+public class SaveInputManager : MonoBehaviour
 {
     //[SerializeField]
     //private SInputCharecteristics playerData;
@@ -37,7 +37,7 @@ public class SaveCharecteristicsData : MonoBehaviour
             }
         }
     }
-   
+
     public void SavePlayerData(string dataToSave)
     {
         if (isDataSaved)
@@ -45,17 +45,23 @@ public class SaveCharecteristicsData : MonoBehaviour
             Debug.LogWarning("Data already saved. Modify input fields to save new data.");
             return;
         }
+
+        if (string.IsNullOrWhiteSpace(dataToSave))
+        {
+            Debug.LogError("Cannot save empty or null data.");
+            return;
+        }
+
         try
         {
-            File.AppendAllText(filePath, dataToSave + "\n");
+            File.AppendAllText(filePath, dataToSave);
             Debug.Log("Data saved successfully to: " + filePath);
             isDataSaved = true;
         }
         catch (Exception e)
         {
-            Debug.LogError("Failed to save player data: " + e.Message);
+            Debug.LogError($"Failed to save player data: {e.Message}\n{e.StackTrace}");
         }
-         
     }
 }
 
