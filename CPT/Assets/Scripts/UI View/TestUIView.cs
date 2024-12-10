@@ -13,9 +13,9 @@ public class TestUIView : MonoBehaviour
     [SerializeField] private Image _bottomSquare;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private Image _startImage;
-
     [SerializeField] private Image _warmupImage;
     [SerializeField] private Image _testImage;
+    [SerializeField] private Image _endImage;
 
     private float _countdownDuration { get => AppStateMachine.Instance.testSettings.countdownDuration; }
 
@@ -52,6 +52,7 @@ public class TestUIView : MonoBehaviour
         _startImage.gameObject.SetActive(false);
         _warmupImage.gameObject.SetActive(false);
         _testImage.gameObject.SetActive(false);
+        _endImage.gameObject.SetActive(false);
     }
 
     public void BeginWarmupCountdown()
@@ -64,6 +65,12 @@ public class TestUIView : MonoBehaviour
     {
         HideAllElements();
         StartCoroutine(TestCountdownCoroutine());
+    }
+
+    public void EndTest()
+    {
+        HideAllElements();
+        StartCoroutine(EndTestCoroutine());
     }
 
     private IEnumerator WarmupCountdownCoroutine()
@@ -97,6 +104,12 @@ public class TestUIView : MonoBehaviour
         yield return new WaitForSeconds(1);
         _startImage.gameObject.SetActive(false);
         CountdownFinished?.Invoke();
+    }
+
+    private IEnumerator EndTestCoroutine()
+    {
+        yield return new WaitForSeconds(_countdownDuration);
+        _endImage.gameObject.SetActive(true);
     }
 
     private void SetUpButton()
