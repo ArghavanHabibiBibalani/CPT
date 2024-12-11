@@ -5,19 +5,25 @@ using UnityEngine.UI;
 
 public class OverviewUIView : MonoBehaviour
 {
-    [SerializeField] private GameObject _overviewPanel;
+    [SerializeField] private GameObject _elements;
     [SerializeField] private Button _button;
 
     public event Action ScreenTapped;
 
-    public void ShowOverviewPanel()
+    public void ShowAllElements()
     {
-        _overviewPanel.SetActive(true);
+        _elements.SetActive(true);
     }
 
-    public void HideOverviewPanel()
+    public void HideAllElements()
     {
-        _overviewPanel.SetActive(false);
+        _elements.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        SetupButton();
+        HideAllElements();
     }
 
     private void SetupButton()

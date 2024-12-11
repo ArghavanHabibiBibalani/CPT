@@ -1,6 +1,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.Rendering.ShadowCascadeGUI;
 
@@ -67,9 +68,7 @@ namespace StatePattern
                 string data = _inputCharacteristics.GetComponent<InputManager>().GetInputCharecteristicsData();
                 _dataSaver.SavePlayerData(data);
             }
-
-
-            //////////////////////////next state here
+            _stateMachine.TransitionTo(AppStateType.TEST);
         }
     }
 }

@@ -17,17 +17,17 @@ namespace StatePattern
         {
             _overviewUIView = Object.FindObjectOfType<OverviewUIView>();
             _overviewUIView.ScreenTapped += OnScreenTapped;
-            _overviewUIView.ShowOverviewPanel();
+            _overviewUIView.ShowAllElements();
         }
 
         public override void Exit()
         {
-            _overviewUIView.HideOverviewPanel();
+            _overviewUIView.HideAllElements();
         }
 
         private void OnScreenTapped()
         {
-            _stateMachine.TransitionTo(AppStateType.WARMUP);
+            _stateMachine.TransitionTo(AppStateType.TEST);
         }
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class TestUIView : MonoBehaviour
 {
+    [SerializeField] private GameObject _elementsHolder;
     [SerializeField] private Button _button;
     [SerializeField] private Image _topSquare;
     [SerializeField] private Image _bottomSquare;
@@ -25,6 +26,7 @@ public class TestUIView : MonoBehaviour
     private void Awake()
     {
         SetUpButton();
+        HideAllElements();
     }
 
     public void ActivateTopSquare()
@@ -45,6 +47,16 @@ public class TestUIView : MonoBehaviour
 
     public void HideAllElements()
     {
+        _elementsHolder.SetActive(false);
+    }
+
+    public void ShowAllElements()
+    {
+        _elementsHolder.SetActive(true);
+    }
+
+    public void HideAllElementsIndividually()
+    {
         _button.gameObject.SetActive(false);
         _topSquare.gameObject.SetActive(false);
         _bottomSquare.gameObject.SetActive(false);
@@ -57,19 +69,19 @@ public class TestUIView : MonoBehaviour
 
     public void BeginWarmupCountdown()
     {
-        HideAllElements();
+        HideAllElementsIndividually();
         StartCoroutine(WarmupCountdownCoroutine());
     }
 
     public void BeginTestCountdown()
     {
-        HideAllElements();
+        HideAllElementsIndividually();
         StartCoroutine(TestCountdownCoroutine());
     }
 
     public void EndTest()
     {
-        HideAllElements();
+        HideAllElementsIndividually();
         StartCoroutine(EndTestCoroutine());
     }
 

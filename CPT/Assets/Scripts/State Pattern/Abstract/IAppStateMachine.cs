@@ -7,6 +7,7 @@ namespace StatePattern
     internal interface IAppStateMachine
     {
         public void TransitionTo(AppStateType targetStateType);
+
         public TestSettings testSettings { get; }
     }
 }

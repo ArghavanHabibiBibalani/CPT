@@ -10,11 +10,6 @@ namespace StatePattern
         public virtual void Exit() { }
         public virtual void Reset() { }
 
-        public static MainMenuAppState CreateMainMenuAppState(IAppStateMachine stateMachine)
-        {
-            return new MainMenuAppState(stateMachine);
-        }
-
         public static PersonalInfoAppState CreatePersonalInfoAppState(IAppStateMachine stateMachine)
         {
             return new PersonalInfoAppState(stateMachine);

@@ -15,14 +15,16 @@ namespace StatePattern
         public TestAppState(IAppStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            _testSettings =  AppStateMachine.Instance.testSettings;
+            _testSettings = AppStateMachine.Instance.testSettings;
         }
 
         public override void Enter()
         {
             _testUIView = Object.FindObjectOfType<TestUIView>();
-            _testManager = new TestManager(_testSettings, _testUIView);
             _testUIView.ScreenTapped += OnScreenTapped;
+            _testUIView.ShowAllElements();
+
+            _testManager = new TestManager(_testSettings, _testUIView);
             _testManager.WarmupFinished += OnWarmupFinished;
             _testManager.TestFinished += OnTestFinished;
             _testManager.BeginWarmup();
@@ -30,6 +32,7 @@ namespace StatePattern
 
         public override void Exit()
         {
+            _testUIView.HideAllElements();
             Reset();
         }
 

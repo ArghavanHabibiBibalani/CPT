@@ -82,9 +82,9 @@ public class TestManager
         else
         {
             TestFinished?.Invoke();
+            _testUIView.EndTest();
+            // Save and proceed to the results?
         }
-        _testUIView.EndTest();
-        // Save and proceed to the results?
     }
     private void SetInitialData(bool isWarmup)
     {

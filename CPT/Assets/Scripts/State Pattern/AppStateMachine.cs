@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 namespace StatePattern
 {
-    internal class AppStateMachine : PersistentSingletonMonoBehaviour<AppStateMachine>, IAppStateMachine // Remove this interface
+    internal class AppStateMachine : PersistentSingletonMonoBehaviour<AppStateMachine>, IAppStateMachine
     {
-        [SerializeField] private SceneNames _sceneNames;
         [SerializeField] private TestSettings _testSettings;
 
         private IAppState _activeState;
@@ -29,14 +28,7 @@ namespace StatePattern
 
         private void SetInitialState()
         {
-            if (SceneManager.GetActiveScene().name == _sceneNames.Main)
-            {
-                _activeState = _statesManager.GetAppStateByType(AppStateType.MAINMENU);
-            }
-            else
-            {
-                _activeState = _statesManager.GetAppStateByType(AppStateType.TEST);
-            }
+            _activeState = _statesManager.GetAppStateByType(AppStateType.PERSONAL_INFO);
             _activeState.Enter();
         }
 
@@ -66,7 +58,6 @@ namespace StatePattern
 
             private void InitializeStates()
             {
-                _states.Add(AppStateType.MAINMENU, IAppState.CreateMainMenuAppState(_stateMachine));
                 _states.Add(AppStateType.PERSONAL_INFO, IAppState.CreatePersonalInfoAppState(_stateMachine));
                 _states.Add(AppStateType.TEST_OVERVIEW, IAppState.CreateTestOverviewAppState(_stateMachine));
                 _states.Add(AppStateType.TEST, IAppState.CreateTestAppState(_stateMachine));
