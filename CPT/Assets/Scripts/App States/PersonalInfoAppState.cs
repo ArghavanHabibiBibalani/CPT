@@ -9,9 +9,10 @@ namespace StatePattern
 {
     internal class PersonalInfoAppState : AbstractAppState
     {
+        private InformationUIView _informationUIView;
         private Button _saveButton;
-        private Button _exitButton;
-        private InputManager _inputCharacteristics;
+        //private Button _exitButton;
+        //private InputManager _inputCharacteristics;
         private SaveInputManager _dataSaver;
         public PersonalInfoAppState(IAppStateMachine stateMachine)
         {
@@ -21,14 +22,18 @@ namespace StatePattern
 
         public override void Enter()
         {
-            _inputCharacteristics = GameObject.FindGameObjectWithTag("Characteristics")?.GetComponent<InputManager>();
-            if (_inputCharacteristics == null)
-            {
-                Debug.LogError("SInputCharecteristics instance not found!");
-                return;
-            }
+            _informationUIView = Object.FindObjectOfType<InformationUIView>();
+            _informationUIView.ScreenTapped += OnScreenTapped;
+            _informationUIView.ShowAllElements();
 
-            GameObject.FindGameObjectWithTag("Characteristics").SetActive(true);
+            //_inputCharacteristics = GameObject.FindGameObjectWithTag("Characteristics")?.GetComponent<InputManager>();
+            //if (_inputCharacteristics == null)
+            //{
+            //    Debug.LogError("SInputCharecteristics instance not found!");
+            //    return;
+            //}
+
+            //GameObject.FindGameObjectWithTag("Characteristics").SetActive(true);
 
             _saveButton = GameObject.FindGameObjectWithTag("SaveButton")?.GetComponent<Button>();
 
@@ -41,33 +46,43 @@ namespace StatePattern
                 Debug.LogError("Save Button missing.");
             }
 
-            _exitButton = GameObject.FindGameObjectWithTag("ExitButton")?.GetComponent<Button>();
+            //_exitButton = GameObject.FindGameObjectWithTag("ExitButton")?.GetComponent<Button>();
 
-            if (_exitButton)
-            {
-                //_exitButton.onClick.AddListener(HandleSave);//////////back to main state
-            }
-            else
-            {
-                Debug.LogError("Exit Button missing.");
-            }
+            //if (_exitButton)
+            //{
+            //    //_exitButton.onClick.AddListener(HandleSave);//////////back to main state
+            //}
+            //else
+            //{
+            //    Debug.LogError("Exit Button missing.");
+            //}
         }
 
         public override void Exit()
         {
+            _informationUIView.HideAllElements();
+
             if (_saveButton)
             {
                 _saveButton.onClick.RemoveListener(HandleSave);
             }
         }
 
+        private void OnScreenTapped()
+        {
+
+        } 
+
         private void HandleSave()
         {
-            if (_inputCharacteristics)
-            {
-                string data = _inputCharacteristics.GetComponent<InputManager>().GetInputCharecteristicsData();
-                _dataSaver.SavePlayerData(data);
-            }
+            string data = _informationUIView.InputManager.GetInputCharecteristicsData();
+            _dataSaver.SavePlayerData(data);
+
+            //if (_inputCharacteristics)
+            //{
+            //    string data = _inputCharacteristics.GetComponent<InputManager>().GetInputCharecteristicsData();
+            //    _dataSaver.SavePlayerData(data);
+            //}
             _stateMachine.TransitionTo(AppStateType.TEST);
         }
     }
