@@ -7,6 +7,7 @@ using UnityEngine;
 public class TestManager
 {
     private TestUIView _testUIView;
+    private TestRecorder _recorder;
     private TestSettings _testSettings;
 
     private int _totalTrials;
@@ -24,11 +25,12 @@ public class TestManager
     public event Action WarmupFinished;
     public event Action TestFinished;
 
-    public TestManager(TestSettings testSettings, TestUIView testUIView)
+    public TestManager(TestSettings testSettings, TestUIView testUIView, TestRecorder recorder)
     {
         _testSettings = testSettings;
         _testUIView = testUIView;
         _testUIView.CountdownFinished += OnCountdownFinished;
+        _recorder = recorder;
     }
 
     public void BeginWarmup()
@@ -66,7 +68,11 @@ public class TestManager
             {
                 yield return new WaitForSeconds(_testSettings.gapDuration);
                 var squareIndex = (partCounter * _trialsPerPart) + trialCounter;
-                ActivateSquare(squareIndex);
+                var isTopSquare = ActivateSquare(squareIndex);
+                if (_isWarmup == false)
+                {
+                    _recorder.StartTimer(isTopSquare);
+                }
                 yield return new WaitForSeconds(_testSettings.squareVisibilityDuration);
                 _testUIView.HideSquares();
                 trialCounter++;
@@ -74,6 +80,10 @@ public class TestManager
             trialCounter = 0;
             partCounter++;
             yield return new WaitForSeconds(_testSettings.breakDuration);
+            if (_isWarmup == false)
+            {
+                _recorder.StopTimer();
+            }
         }
         if (isWarmup)
         {
@@ -83,7 +93,6 @@ public class TestManager
         {
             TestFinished?.Invoke();
             _testUIView.EndTest();
-            // Save and proceed to the results?
         }
     }
     private void SetInitialData(bool isWarmup)
@@ -95,18 +104,16 @@ public class TestManager
         InitializeSquareSequence();
     }
 
-    private void ActivateSquare(int index)
+    private bool ActivateSquare(int index)
     {
         if (_squaresSequence[index] == true)
         {
-            Debug.Log("Top square");
             _testUIView.ActivateTopSquare();
+            return true;
         }
-        else
-        {
-            Debug.Log("Bottom square");
-            _testUIView.ActivateBottomSquare();
-        }
+
+        _testUIView.ActivateBottomSquare();
+        return false;
     }
 
     private void InitializeSquareSequence()
@@ -121,4 +128,6 @@ public class TestManager
 
         Utility.ShuffleList(_squaresSequence);
     }
+
+    
 }

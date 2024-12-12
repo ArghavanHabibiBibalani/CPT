@@ -18,6 +18,10 @@ namespace StatePattern
         {
             base.Awake();
             _statesManager = new AppStatesManager(this);
+        }
+
+        private void Start()
+        {
             SetInitialState();
         }
 

@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class InformationUIView : MonoBehaviour
 {
     [SerializeField] private GameObject _elements;
-    [SerializeField] private Button _button;
+    [SerializeField] private Button _saveButton;
 
     [SerializeField] private InputManager _inputManager;
 
     public InputManager InputManager => _inputManager;
 
-    public event Action ScreenTapped;
+    public event Action SaveClicked;
 
 
     public void HideAllElements()
@@ -34,13 +34,11 @@ public class InformationUIView : MonoBehaviour
 
     private void SetupButton()
     {
-        _button.onClick.AddListener(OnScreenTapped);
+        _saveButton.onClick.AddListener(OnSaveClicked);
     }
 
-    private void OnScreenTapped()
+    private void OnSaveClicked()
     {
-        ScreenTapped?.Invoke();
+        SaveClicked?.Invoke();
     }
-
-    // Input manager reference
 }

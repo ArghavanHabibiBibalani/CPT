@@ -9,12 +9,6 @@ using UnityEngine.UI;
 [Serializable]
 public class SaveInputManager : MonoBehaviour
 {
-    //[SerializeField]
-    //private SInputCharecteristics playerData;
-
-    //[SerializeField]
-    //private Button _saveButton;
-
     private bool isDataSaved = false;
 
     string filePath = Path.Combine(Application.streamingAssetsPath, "playerData.csv");

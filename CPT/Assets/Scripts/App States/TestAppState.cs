@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -8,6 +9,7 @@ namespace StatePattern
     {
         private TestUIView _testUIView;
         private TestManager _testManager;
+        private TestRecorder _testRecorder;
         private TestSettings _testSettings;
 
         private bool _isWarmup = true;
@@ -21,10 +23,11 @@ namespace StatePattern
         public override void Enter()
         {
             _testUIView = Object.FindObjectOfType<TestUIView>();
-            _testUIView.ScreenTapped += OnScreenTapped;
             _testUIView.ShowAllElements();
 
-            _testManager = new TestManager(_testSettings, _testUIView);
+            _testRecorder = Object.FindObjectOfType<TestRecorder>();
+
+            _testManager = new TestManager(_testSettings, _testUIView, _testRecorder);
             _testManager.WarmupFinished += OnWarmupFinished;
             _testManager.TestFinished += OnTestFinished;
             _testManager.BeginWarmup();
@@ -41,11 +44,6 @@ namespace StatePattern
             _isWarmup = true;
         }
 
-        private void OnScreenTapped()
-        {
-
-        }
-
         private void OnWarmupFinished()
         {
             _testManager.BeginTest();
@@ -53,7 +51,8 @@ namespace StatePattern
 
         private void OnTestFinished()
         {
-
+            // Write recorder's data
+            Debug.Log(_testRecorder.RecordedData());
         }
     }
 }
