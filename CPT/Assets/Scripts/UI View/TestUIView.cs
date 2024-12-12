@@ -70,12 +70,14 @@ public class TestUIView : MonoBehaviour
     public void BeginWarmupCountdown()
     {
         HideAllElementsIndividually();
+        _button.gameObject.SetActive(true);
         StartCoroutine(WarmupCountdownCoroutine());
     }
 
     public void BeginTestCountdown()
     {
         HideAllElementsIndividually();
+        _button.gameObject.SetActive(true);
         StartCoroutine(TestCountdownCoroutine());
     }
 

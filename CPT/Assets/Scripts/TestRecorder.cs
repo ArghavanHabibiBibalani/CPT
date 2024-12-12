@@ -43,10 +43,16 @@ public class TestRecorder : MonoBehaviour
     public void StartTimer(bool isTopSquare)
     {
         _testIsRunning = true;
+        _isTopSquare = isTopSquare;
     }
 
     public void StopTimer()
     {
+        if (_testIsRunning == false)
+        {
+            return;
+        }
+
         if (_tappedThisTrial == false)
         {
             DidNotTap();
@@ -55,26 +61,40 @@ public class TestRecorder : MonoBehaviour
         _testIsRunning = false;
         _tappedThisTrial = false;
         _timer = 0;
+        UpdateHighestStreak();
+    }
+
+
+    public void ResetCurrentStreak()
+    {
+        _currentInTheZoneStreak = 0;
     }
 
     public string RecordedData()
     {
         return $"{_totalInTheZone}, " +
-            $"{_totalTooEarly + _totalTooLate}, " +
+            $"{_totalTooEarly + _totalTooLate + _totalMistakes}, " +
             $"{_totalTooEarly}, " +
             $"{_totalTooLate}, " +
+            $"{_totalMistakes}, " +
             $"{_highestInTheZoneStreak}, " +
             $"{string.Join(", ", _timeRecords)}";
     }
 
     private void OnScreenTapped()
     {
+        if (_testIsRunning == false || _tappedThisTrial)
+        {
+            return;        
+        }
+
         _tappedThisTrial = true;
+
         if (_isTopSquare == false)
         {
             MadeMistake();
-            _timeRecords.Add($"Mistake: {_timer:f2}");
         }
+
         else
         {
             if (_timer < settings.minimumReactionTime)
@@ -83,35 +103,50 @@ public class TestRecorder : MonoBehaviour
             }
             else
             {
-                TappedInTheZone();
+                WasInTheZone();
             }
         }
-        _timeRecords.Add($"{_timer:f2}");
     }
 
     private void TappedTooEarly()
     {
         _totalTooEarly++;
         UpdateHighestStreak();
+        _timeRecords.Add($"{_timer:f2}");
+        ResetCurrentStreak();
+        print($"Too early: {_timer:f2}");
     }
-    
-    private void TappedInTheZone()
+
+    private void WasInTheZone()
     {
         _totalInTheZone++;
         _currentInTheZoneStreak++;
+        _timeRecords.Add($"{_timer:f2}");
+        print($"In Zone: {_timer:f2}");
     }
 
     private void DidNotTap()
     {
+        if (_isTopSquare == false)
+        {
+            WasInTheZone();
+            return;
+        }
+
         _timeRecords.Add("Too late");
         _totalTooLate++;
         UpdateHighestStreak();
+        ResetCurrentStreak();
+        print($"Didn't tap: {_timer:f2}");
     }
 
     private void MadeMistake()
     {
+        _timeRecords.Add($"Mistake: {_timer:f2}");
         _totalMistakes++;
         UpdateHighestStreak();
+        ResetCurrentStreak();
+        print($"Mistake: {_timer:f2}");
     }
 
     private void UpdateHighestStreak()

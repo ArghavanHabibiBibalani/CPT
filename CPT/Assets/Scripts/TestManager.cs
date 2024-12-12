@@ -35,6 +35,11 @@ public class TestManager
 
     public void BeginWarmup()
     {
+        if (_testSettings.warmupPartCount == 0 || _testSettings.warmupTrialCount == 0)
+        {
+            WarmupFinished?.Invoke();
+            return;
+        }
         _isWarmup = true;
         _testUIView.BeginWarmupCountdown();
     }
@@ -67,6 +72,10 @@ public class TestManager
             while (trialCounter < _trialsPerPart)
             {
                 yield return new WaitForSeconds(_testSettings.gapDuration);
+                if (_isWarmup == false)
+                {
+                    _recorder.StopTimer();
+                }
                 var squareIndex = (partCounter * _trialsPerPart) + trialCounter;
                 var isTopSquare = ActivateSquare(squareIndex);
                 if (_isWarmup == false)
@@ -77,13 +86,15 @@ public class TestManager
                 _testUIView.HideSquares();
                 trialCounter++;
             }
-            trialCounter = 0;
-            partCounter++;
-            yield return new WaitForSeconds(_testSettings.breakDuration);
+            yield return new WaitForSeconds(_testSettings.gapDuration);
             if (_isWarmup == false)
             {
                 _recorder.StopTimer();
+                _recorder.ResetCurrentStreak();
             }
+            trialCounter = 0;
+            partCounter++;
+            yield return new WaitForSeconds(_testSettings.breakDuration);
         }
         if (isWarmup)
         {
