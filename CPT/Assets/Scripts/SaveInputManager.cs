@@ -6,13 +6,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
 public class SaveInputManager : MonoBehaviour
 {
-    private bool isDataSaved = false;
+    private bool isInputDataSaved;
+    private bool isRecordedDataSaved;
+    private string currentRowData = "";
 
     string filePath = Path.Combine(Application.streamingAssetsPath, "playerData.csv");
-   
+
     private void Awake()
     {
         if (!Directory.Exists(Application.streamingAssetsPath))
@@ -21,41 +22,67 @@ public class SaveInputManager : MonoBehaviour
         }
         if (!File.Exists(filePath))
         {
-            File.WriteAllText(filePath, "Name,Age,Gender,Daily Sleep Time,Bed Time,Wake Up Time\n");
+            File.WriteAllText(filePath, "Name,Age,Gender,Daily Sleep Time,Bed Time,Wake Up Time,total in the zone,total out of the zone,total too early,total too late,total mistakes,highest in the zone streak\n");
         }
         else
         {
             if (new FileInfo(filePath).Length == 0)
             {
-                File.WriteAllText(filePath, "Name,Age,Gender,Daily Sleep Time,Bed Time,Wake Up Time\n");
+                File.WriteAllText(filePath, "Name,Age,Gender,Daily Sleep Time,Bed Time,Wake Up Time,total in the zone,total out of the zone,total too early,total too late,total mistakes,highest in the zone streak\n");
+
             }
         }
     }
 
     public void SavePlayerData(string dataToSave)
     {
-        if (isDataSaved)
+        print($"Input saved: {isInputDataSaved}, Records saved: {isRecordedDataSaved}");
+        if (isInputDataSaved)
         {
             Debug.LogWarning("Data already saved. Modify input fields to save new data.");
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(dataToSave))
+        currentRowData = dataToSave;
+        print(currentRowData);
+        //Debug.Log("Data saved successfully to: " + filePath);
+        isInputDataSaved = true;
+
+        SaveCurrentRow();
+    }
+
+    public void SaveRecordedData(string recordedData)
+    {
+        print($"Current row before appending: {currentRowData}");
+        print($"Recorded Data: {recordedData}");
+        if (isRecordedDataSaved)
         {
-            Debug.LogError("Cannot save empty or null data.");
+            Debug.LogWarning("Recorded data already saved for this row. Modify input fields to save new data.");
             return;
         }
 
-        try
+        currentRowData += "," + recordedData;
+        print($"Current row after appending: {currentRowData}");
+        isRecordedDataSaved = true;
+
+        SaveCurrentRow();
+    }
+
+    private void SaveCurrentRow()
+    {
+        print($"Input saved: {isInputDataSaved}, Records saved: {isRecordedDataSaved}");
+        if (isInputDataSaved && isRecordedDataSaved)
         {
-            File.AppendAllText(filePath, dataToSave);
+            File.AppendAllText(filePath, currentRowData + "\n");
             Debug.Log("Data saved successfully to: " + filePath);
-            isDataSaved = true;
         }
-        catch (Exception e)
-        {
-            Debug.LogError($"Failed to save player data: {e.Message}\n{e.StackTrace}");
-        }
+    }
+
+    public void ResetRowBuffer()
+    {
+        currentRowData = "";
+        isInputDataSaved = false;
+        isRecordedDataSaved = false;
     }
 }
 

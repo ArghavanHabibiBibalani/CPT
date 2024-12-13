@@ -3688,6 +3688,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 169677091535058841}
     - target: {fileID: 5406021027640910971, guid: 2ab054f210b83674cb98db617104fec2, type: 3}
+      propertyPath: _inputManager.playerDailySleepTimeInput
+      value: 
+      objectReference: {fileID: 2229443877026447818}
+    - target: {fileID: 5406021027640910971, guid: 2ab054f210b83674cb98db617104fec2, type: 3}
       propertyPath: _inputManager.playerdailySleepTimeInput
       value: 
       objectReference: {fileID: 2229443877026447818}
@@ -3864,7 +3868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.00016975403, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5586241739746473034
@@ -4237,7 +4241,6 @@ GameObject:
   - component: {fileID: 6802856936531588695}
   - component: {fileID: 3384407057741852137}
   - component: {fileID: 2437156538783516104}
-  - component: {fileID: 7414542257807231471}
   m_Layer: 5
   m_Name: Characteristics
   m_TagString: Characteristics
@@ -4659,18 +4662,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7414542257807231471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6289894042817033268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decbc5ec2e0e5ff489662ab9e291f756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &7480674867187040735
 CanvasRenderer:
   m_ObjectHideFlags: 0

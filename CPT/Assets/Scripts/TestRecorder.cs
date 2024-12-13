@@ -114,7 +114,7 @@ public class TestRecorder : MonoBehaviour
         UpdateHighestStreak();
         _timeRecords.Add($"{_timer:f2}");
         ResetCurrentStreak();
-        print($"Too early: {_timer:f2}");
+        //print($"Too early: {_timer:f2}");
     }
 
     private void WasInTheZone()
@@ -122,7 +122,7 @@ public class TestRecorder : MonoBehaviour
         _totalInTheZone++;
         _currentInTheZoneStreak++;
         _timeRecords.Add($"{_timer:f2}");
-        print($"In Zone: {_timer:f2}");
+        //print($"In Zone: {_timer:f2}");
     }
 
     private void DidNotTap()
@@ -137,7 +137,7 @@ public class TestRecorder : MonoBehaviour
         _totalTooLate++;
         UpdateHighestStreak();
         ResetCurrentStreak();
-        print($"Didn't tap: {_timer:f2}");
+        //print($"Didn't tap: {_timer:f2}");
     }
 
     private void MadeMistake()
@@ -146,7 +146,7 @@ public class TestRecorder : MonoBehaviour
         _totalMistakes++;
         UpdateHighestStreak();
         ResetCurrentStreak();
-        print($"Mistake: {_timer:f2}");
+        //print($"Mistake: {_timer:f2}");
     }
 
     private void UpdateHighestStreak()

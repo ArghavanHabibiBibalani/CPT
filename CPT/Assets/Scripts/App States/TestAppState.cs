@@ -11,13 +11,13 @@ namespace StatePattern
         private TestManager _testManager;
         private TestRecorder _testRecorder;
         private TestSettings _testSettings;
-
-        private bool _isWarmup = true;
+        private SaveInputManager _saveManager;
 
         public TestAppState(IAppStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
             _testSettings = AppStateMachine.Instance.testSettings;
+            _saveManager = Object.FindObjectOfType<SaveInputManager>();
         }
 
         public override void Enter()
@@ -36,12 +36,6 @@ namespace StatePattern
         public override void Exit()
         {
             _testUIView.HideAllElements();
-            Reset();
-        }
-
-        public override void Reset()
-        {
-            _isWarmup = true;
         }
 
         private void OnWarmupFinished()
@@ -51,8 +45,10 @@ namespace StatePattern
 
         private void OnTestFinished()
         {
-            // Write recorder's data
-            Debug.Log(_testRecorder.RecordedData());
+            string result = _testRecorder.RecordedData();
+            _saveManager.SaveRecordedData(result);
+
+            _stateMachine.TransitionTo(AppStateType.PERSONAL_INFO);
         }
     }
 }

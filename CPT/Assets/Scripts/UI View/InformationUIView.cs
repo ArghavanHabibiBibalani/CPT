@@ -15,6 +15,11 @@ public class InformationUIView : MonoBehaviour
 
     public event Action SaveClicked;
 
+    private void Awake()
+    {
+        SetupButton();
+        HideAllElements();
+    }
 
     public void HideAllElements()
     {
@@ -24,12 +29,13 @@ public class InformationUIView : MonoBehaviour
     public void ShowAllElements()
     {
         _elements.SetActive(true);
+        _saveButton.onClick.AddListener(OnSaveClicked);
     }
 
-    private void Awake()
+    public void ResetElements()
     {
-        SetupButton();
-        HideAllElements();
+        _inputManager.Reset();
+        _saveButton.onClick.RemoveAllListeners();
     }
 
     private void SetupButton()
