@@ -30,6 +30,7 @@ public class TestManager
         _testSettings = testSettings;
         _testUIView = testUIView;
         _testUIView.CountdownFinished += OnCountdownFinished;
+        _testUIView.TestEnded += OnTestEnded;
         _recorder = recorder;
     }
 
@@ -102,10 +103,18 @@ public class TestManager
         }
         else
         {
-            TestFinished?.Invoke();
             _testUIView.EndTest();
         }
     }
+
+    private void OnTestEnded()
+    {
+        TestFinished?.Invoke();
+        _recorder.ResetAllData();
+        _testUIView.CountdownFinished -= OnCountdownFinished;
+        _testUIView.TestEnded -= OnTestEnded;
+    }
+
     private void SetInitialData(bool isWarmup)
     {
         _totalTrials = isWarmup ? _testSettings.warmupTrialCount : _testSettings.testTrialCount;
@@ -138,7 +147,5 @@ public class TestManager
             _squaresSequence.Add(false);
 
         Utility.ShuffleList(_squaresSequence);
-    }
-
-    
+    } 
 }

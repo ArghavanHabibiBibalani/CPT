@@ -1,9 +1,5 @@
 
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static UnityEditor.Rendering.ShadowCascadeGUI;
 
 namespace StatePattern
 {
@@ -14,7 +10,7 @@ namespace StatePattern
         public PersonalInfoAppState(IAppStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            _dataSaver = new SaveInputManager();
+            _dataSaver = Object.FindObjectOfType<SaveInputManager>();
         }
 
         public override void Enter()
@@ -22,6 +18,7 @@ namespace StatePattern
             _informationUIView = Object.FindObjectOfType<InformationUIView>();
             _informationUIView.SaveClicked += OnSaveClicked;
             _informationUIView.ShowAllElements();
+            _dataSaver.ResetRowBuffer();
         }
 
         public override void Exit()
@@ -31,6 +28,7 @@ namespace StatePattern
 
         private void OnSaveClicked()
         {
+            _informationUIView.SaveClicked -= OnSaveClicked;
             Save();
             _stateMachine.TransitionTo(AppStateType.TEST_OVERVIEW);
         } 

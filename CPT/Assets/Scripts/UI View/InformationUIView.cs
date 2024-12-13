@@ -24,21 +24,23 @@ public class InformationUIView : MonoBehaviour
     public void ShowAllElements()
     {
         _elements.SetActive(true);
+        SetupButton();
     }
 
     private void Awake()
     {
-        SetupButton();
         HideAllElements();
     }
 
     private void SetupButton()
     {
+        _saveButton.onClick.RemoveAllListeners();
         _saveButton.onClick.AddListener(OnSaveClicked);
     }
 
     private void OnSaveClicked()
     {
         SaveClicked?.Invoke();
+        _inputManager.ResetInputFields();
     }
 }
