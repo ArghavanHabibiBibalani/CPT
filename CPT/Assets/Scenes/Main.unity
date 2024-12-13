@@ -4237,7 +4237,6 @@ GameObject:
   - component: {fileID: 6802856936531588695}
   - component: {fileID: 3384407057741852137}
   - component: {fileID: 2437156538783516104}
-  - component: {fileID: 7414542257807231471}
   m_Layer: 5
   m_Name: Characteristics
   m_TagString: Characteristics
@@ -4659,18 +4658,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7414542257807231471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6289894042817033268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decbc5ec2e0e5ff489662ab9e291f756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &7480674867187040735
 CanvasRenderer:
   m_ObjectHideFlags: 0

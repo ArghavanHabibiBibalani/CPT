@@ -22,6 +22,7 @@ public class TestUIView : MonoBehaviour
 
     public event Action ScreenTapped;
     public event Action CountdownFinished;
+    public event Action TestEnded;
 
     private void Awake()
     {
@@ -85,6 +86,7 @@ public class TestUIView : MonoBehaviour
     {
         HideAllElementsIndividually();
         StartCoroutine(EndTestCoroutine());
+        _button.onClick.RemoveAllListeners();
     }
 
     private IEnumerator WarmupCountdownCoroutine()
@@ -124,6 +126,7 @@ public class TestUIView : MonoBehaviour
     {
         yield return new WaitForSeconds(_countdownDuration);
         _endImage.gameObject.SetActive(true);
+        TestEnded?.Invoke();
     }
 
     private void SetUpButton()

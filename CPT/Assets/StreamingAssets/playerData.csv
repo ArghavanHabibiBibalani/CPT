@@ -1,2 +1,2 @@
-Name,Age,Gender,Daily Sleep Time,Bed Time,Wake Up Time
-Yashar Behzad, 23, Male, 6, 1 am, 7:30 amYashar, 23, Male, 6, 1am, 7:30 am, , , , , , , , , , , , , , , Yashar Behzad, 22, male, 6, 1, 7:30Yashar Behzad, 22, male, 6, 1, 7, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
+Name,Age,Gender,Daily Sleep Time,Bed Time,Wake Up Time,total in the zone,total out of the zone,total too early,total too late,total mistakes,highest in the zone streak
+P, 0, p, 0, 0, 0,1, 3, 0, 3, 0, 1, Too late, Too late, 1.51, Too late

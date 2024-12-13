@@ -40,5 +40,6 @@ public class InformationUIView : MonoBehaviour
     private void OnSaveClicked()
     {
         SaveClicked?.Invoke();
+        _saveButton.onClick.RemoveAllListeners();
     }
 }
