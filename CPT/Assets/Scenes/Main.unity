@@ -3688,6 +3688,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 169677091535058841}
     - target: {fileID: 5406021027640910971, guid: 2ab054f210b83674cb98db617104fec2, type: 3}
+      propertyPath: _inputManager.playerDailySleepTimeInput
+      value: 
+      objectReference: {fileID: 2229443877026447818}
+    - target: {fileID: 5406021027640910971, guid: 2ab054f210b83674cb98db617104fec2, type: 3}
       propertyPath: _inputManager.playerdailySleepTimeInput
       value: 
       objectReference: {fileID: 2229443877026447818}
@@ -3864,7 +3868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.00016975403, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5586241739746473034

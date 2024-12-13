@@ -72,6 +72,7 @@ public class TestRecorder : MonoBehaviour
 
     public string RecordedData()
     {
+        _testUIView.ScreenTapped -= OnScreenTapped;
         return $"{_totalInTheZone}, " +
             $"{_totalTooEarly + _totalTooLate + _totalMistakes}, " +
             $"{_totalTooEarly}, " +
@@ -79,6 +80,16 @@ public class TestRecorder : MonoBehaviour
             $"{_totalMistakes}, " +
             $"{_highestInTheZoneStreak}, " +
             $"{string.Join(", ", _timeRecords)}";
+    }
+
+    public void ResetAllData()
+    {
+        _totalInTheZone = 0;
+        _totalTooEarly = 0;
+        _totalTooLate = 0;
+        _totalMistakes = 0;
+        _highestInTheZoneStreak = 0;
+        _timeRecords = new List<string>();
     }
 
     private void OnScreenTapped()

@@ -41,11 +41,14 @@ namespace StatePattern
 
         private void OnWarmupFinished()
         {
+            _testManager.WarmupFinished -= OnWarmupFinished;
             _testManager.BeginTest();
         }
 
         private void OnTestFinished()
         {
+            _testManager.TestFinished -= OnTestFinished;
+
             string result = _testRecorder.RecordedData();
             _saveManager.SaveRecordedData(result);
 

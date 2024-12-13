@@ -39,7 +39,7 @@ public class SaveInputManager : MonoBehaviour
     {
         if (isInputDataSaved)
         {
-            Debug.LogWarning("Data already saved. Modify input fields to save new data.");
+            //Debug.LogWarning("Data already saved. Modify input fields to save new data.");
             return;
         }
 
@@ -53,7 +53,7 @@ public class SaveInputManager : MonoBehaviour
     {
         if (isRecordedDataSaved)
         {
-            Debug.LogWarning("Recorded data already saved for this row. Modify input fields to save new data.");
+            //Debug.LogWarning("Recorded data already saved for this row. Modify input fields to save new data.");
             return;
         }
 
@@ -74,7 +74,7 @@ public class SaveInputManager : MonoBehaviour
         if (isInputDataSaved && isRecordedDataSaved)
         {
             File.AppendAllText(filePath, currentRowData + "\n");
-            Debug.Log("Data saved successfully to: " + filePath);
+            //Debug.Log("Data saved successfully to: " + filePath);
         }
     }
 

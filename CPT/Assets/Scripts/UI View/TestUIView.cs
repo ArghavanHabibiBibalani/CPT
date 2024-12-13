@@ -26,7 +26,6 @@ public class TestUIView : MonoBehaviour
 
     private void Awake()
     {
-        SetUpButton();
         HideAllElements();
     }
 
@@ -54,6 +53,7 @@ public class TestUIView : MonoBehaviour
     public void ShowAllElements()
     {
         _elementsHolder.SetActive(true);
+        SetUpButton();
     }
 
     public void HideAllElementsIndividually()
@@ -86,7 +86,6 @@ public class TestUIView : MonoBehaviour
     {
         HideAllElementsIndividually();
         StartCoroutine(EndTestCoroutine());
-        _button.onClick.RemoveAllListeners();
     }
 
     private IEnumerator WarmupCountdownCoroutine()
@@ -124,8 +123,8 @@ public class TestUIView : MonoBehaviour
 
     private IEnumerator EndTestCoroutine()
     {
-        yield return new WaitForSeconds(_countdownDuration);
         _endImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(_countdownDuration);
         TestEnded?.Invoke();
     }
 

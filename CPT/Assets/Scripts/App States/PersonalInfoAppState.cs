@@ -28,6 +28,7 @@ namespace StatePattern
 
         private void OnSaveClicked()
         {
+            _informationUIView.SaveClicked -= OnSaveClicked;
             Save();
             _stateMachine.TransitionTo(AppStateType.TEST_OVERVIEW);
         } 

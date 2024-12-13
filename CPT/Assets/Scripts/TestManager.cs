@@ -110,6 +110,9 @@ public class TestManager
     private void OnTestEnded()
     {
         TestFinished?.Invoke();
+        _recorder.ResetAllData();
+        _testUIView.CountdownFinished -= OnCountdownFinished;
+        _testUIView.TestEnded -= OnTestEnded;
     }
 
     private void SetInitialData(bool isWarmup)
@@ -144,7 +147,5 @@ public class TestManager
             _squaresSequence.Add(false);
 
         Utility.ShuffleList(_squaresSequence);
-    }
-
-    
+    } 
 }

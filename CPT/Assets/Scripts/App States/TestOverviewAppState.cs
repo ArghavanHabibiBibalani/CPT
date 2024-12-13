@@ -27,6 +27,7 @@ namespace StatePattern
 
         private void OnScreenTapped()
         {
+            _overviewUIView.ScreenTapped -= OnScreenTapped;
             _stateMachine.TransitionTo(AppStateType.TEST);
         }
     }
