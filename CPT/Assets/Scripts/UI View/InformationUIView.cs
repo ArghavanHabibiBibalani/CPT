@@ -9,9 +9,9 @@ public class InformationUIView : MonoBehaviour
     [SerializeField] private GameObject _elements;
     [SerializeField] private Button _saveButton;
 
-    [SerializeField] private InputManager _inputManager;
+    [SerializeField] private PersonalInfoInputManager _inputManager;
 
-    public InputManager InputManager => _inputManager;
+    public PersonalInfoInputManager InputManager => _inputManager;
 
     public event Action SaveClicked;
 

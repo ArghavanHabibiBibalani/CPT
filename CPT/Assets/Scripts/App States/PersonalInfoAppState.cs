@@ -37,7 +37,7 @@ namespace StatePattern
 
         private void Save()
         {
-            string data = _informationUIView.InputManager.GetInputCharecteristicsData();
+            string data = _informationUIView.InputManager.GetInputCharacteristicsData();
             _dataSaver.SavePlayerData(data);
         }
     }
