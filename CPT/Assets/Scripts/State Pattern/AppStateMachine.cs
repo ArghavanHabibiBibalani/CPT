@@ -18,6 +18,7 @@ namespace StatePattern
         {
             base.Awake();
             _statesManager = new AppStatesManager(this);
+            Screen.SetResolution(1920, 1080, true);
         }
 
         private void Start()

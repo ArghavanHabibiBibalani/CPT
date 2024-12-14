@@ -29,6 +29,14 @@ public class TestUIView : MonoBehaviour
         HideAllElements();
     }
 
+    private void Update()
+    {
+        if (_elementsHolder.gameObject.activeSelf && Input.GetKey(KeyCode.Space))
+        {
+            ScreenTapped?.Invoke();
+        }
+    }
+
     public void ActivateTopSquare()
     {
         _topSquare.gameObject.SetActive(true);
